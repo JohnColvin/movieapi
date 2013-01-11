@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def top
-    respond_with Movie.top_250(params[:page].to_i || 1)
+    respond_with Movie.top_250(params[:page] || 1)
   end
 
   def show
