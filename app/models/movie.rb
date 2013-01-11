@@ -5,6 +5,8 @@ class Movie
 
   require 'open-uri'
 
+  RESULT_LIMIT = 10
+
   def initialize(imdb_id)
     @id = imdb_id
     self
@@ -31,6 +33,19 @@ class Movie
   def rating
     rating_container = overview.at_css('div[itemprop="aggregateRating"] .star-box-giga-star')
     rating_container ? rating_container.text.strip : nil
+  end
+
+  def self.search(term=nil)
+    results = []
+    if term.present?
+      results_doc = Nokogiri::HTML(open("http://www.imdb.com/find?s=tt&q=#{term}"))
+      results_doc.at_css('table.findList').children.each do |result|
+        result.at_css('td.result_text a').attribute('href').to_s.match(/(tt[\d]+)/)
+        results << Movie.new($1)
+        break if results.size == RESULT_LIMIT
+      end
+    end
+    results
   end
 
   private
