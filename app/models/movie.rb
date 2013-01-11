@@ -29,7 +29,8 @@ class Movie
   end
 
   def rating
-    overview.at_css('div[itemprop="aggregateRating"] .star-box-giga-star').text.strip
+    rating_container = overview.at_css('div[itemprop="aggregateRating"] .star-box-giga-star')
+    rating_container ? rating_container.text.strip : nil
   end
 
   private
