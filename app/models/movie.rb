@@ -20,12 +20,15 @@ class Movie
   end
 
   def title
-    title_and_release_year.gsub(/[\s]+\(.+\)/, '').strip
+    release_year #about to delete the release year node, so we better save it
+    title_and_release_year.css('span').remove
+    title_and_release_year.text.strip
   end
 
   def release_year
-    title_and_release_year.match(/[\s]+\(\D*(\d+)\D*\)/)
-    $1
+    return @release_year if @release_year.present?
+    title_and_release_year.css('span').text.match(/(\d+)/)
+    @release_year = $1
   end
 
   def rating
@@ -80,7 +83,7 @@ class Movie
   end
 
   def title_and_release_year
-    @tary ||= overview.at_css('h1.header').text
+    @tary ||= overview.at_css('h1.header')
   end
 
   def details
