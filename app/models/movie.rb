@@ -22,11 +22,11 @@ class Movie
   end
 
   def title
-    title_and_release_year.gsub(/[\s]+\([\d]+\)/, '').strip
+    title_and_release_year.gsub(/[\s]+\(.+\)/, '').strip
   end
 
   def release_year
-    title_and_release_year.match(/[\s]+\(([\d]+)\)/)
+    title_and_release_year.match(/[\s]+\(\D*(\d+)\D*\)/)
     $1
   end
 
