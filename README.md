@@ -2,7 +2,7 @@
 
 #### This app is a proof of concept and is not intended for use. Consult IMDB's terms before screen scraping them.
 
-This app performs on demand (no caching) screen scraping of IMDB. All responses are availavle in JSON and XML formats.
+This app performs on demand (no caching) screen scraping of IMDB. All responses are available in JSON and XML formats.
 
 ## Endpoints
 
