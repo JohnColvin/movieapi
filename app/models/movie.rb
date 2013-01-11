@@ -11,7 +11,7 @@ class Movie
   end
 
   def serializable_hash(options={})
-    options[:methods] = %w{ title release_year rating }
+    options[:methods] = %w{ title release_year rating storyline }
     super(options)
   end
 
@@ -31,6 +31,16 @@ class Movie
   def rating
     rating_container = overview.at_css('div[itemprop="aggregateRating"] .star-box-giga-star')
     rating_container ? rating_container.text.strip : nil
+  end
+
+  def storyline
+    details.css('div.article').each do |article|
+      article_headline = article.css('h2')
+      next unless article_headline && article_headline.text == 'Storyline'
+      storyline_element = article.at_css('p')
+      storyline_element.at_css('em').remove
+      return storyline_element.text.strip
+    end
   end
 
   def self.search(term)
@@ -71,6 +81,10 @@ class Movie
 
   def title_and_release_year
     @tary ||= overview.at_css('h1.header').text
+  end
+
+  def details
+    @details ||= content.at_css('#maindetails_center_bottom')
   end
 
   def self.movies_from_anchor_tags(anchor_tags)
