@@ -34,15 +34,12 @@ class Movie
   end
 
   def self.search(term=nil)
-    results = []
-    if term.present?
-      imdb_search_result_rows(term).each do |row|
-        imdb_path = row.at_css('td.result_text a').attribute('href').to_s
-        results << Movie.build_from_path(imdb_path)
-        break if results.size == RESULT_LIMIT
-      end
-    end
-    results
+    rows_to_movies(imdb_search_result_rows(term), 'td.result_text a')
+  end
+
+  def self.top_250(page)
+    offset = (page - 1) * RESULT_LIMIT
+    rows_to_movies(imdb_top_250_rows(offset), 'td a')
   end
 
   private
@@ -64,17 +61,33 @@ class Movie
   end
 
   def self.imdb_search_result_rows(term)
-    get_document("http://www.imdb.com/find?s=tt&q=#{term}").at_css('table.findList').children
+    get_document("http://www.imdb.com/find?s=tt&q=#{term}").at_css('table.findList').children[0..(RESULT_LIMIT-1)]
   end
 
-  def self.build_from_path(path)
-    path.match(/(tt[\d]+)/)
+  def self.imdb_top_250_rows(offset)
+    rows = []
+    top_table = Movie.get_document('http://www.imdb.com/chart/top').css('div#main table')[1]
+    top_table.children.each_with_index do |row, index|
+      next if index <= offset
+      next if offset == 0 && index == 0 #skip header row
+      rows << row
+      break if rows.size == RESULT_LIMIT
+    end
+    rows
+  end
+
+  def self.build_from_anchor_tag(anchor_tag)
+    anchor_tag.attribute('href').to_s.match(/(tt[\d]+)/)
     Movie.new($1)
   end
 
   require 'open-uri'
   def self.get_document(url)
     Nokogiri::HTML open(url)
+  end
+
+  def self.rows_to_movies(rows, anchor_selector)
+    rows.map { |row| Movie.build_from_anchor_tag(row.at_css(anchor_selector)) }
   end
 
 end
