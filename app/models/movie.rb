@@ -42,8 +42,13 @@ class Movie
     details.css('div.article').each do |article|
       article_headline = article.css('h2')
       next unless article_headline && article_headline.text == 'Storyline'
+
       storyline_element = article.at_css('p')
-      storyline_element.at_css('em').remove
+      return nil unless storyline_element
+
+      authorship = storyline_element.at_css('em')
+      authorship.remove if authorship
+
       return storyline_element.text.strip
     end
   end
