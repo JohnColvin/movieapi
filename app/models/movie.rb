@@ -3,8 +3,6 @@ class Movie
   include ActiveModel::Serializers::JSON
   include ActiveModel::Serializers::Xml
 
-  require 'open-uri'
-
   RESULT_LIMIT = 10
 
   def initialize(imdb_id)
@@ -50,7 +48,7 @@ class Movie
   private
 
   def doc
-    @doc ||= Nokogiri::HTML(open("http://www.imdb.com/title/#{@id}"))
+    @doc ||= self.class.get_document("http://www.imdb.com/title/#{@id}")
   end
 
   def content
@@ -66,12 +64,17 @@ class Movie
   end
 
   def self.imdb_search_result_rows(term)
-    Nokogiri::HTML(open("http://www.imdb.com/find?s=tt&q=#{term}")).at_css('table.findList').children
+    get_document("http://www.imdb.com/find?s=tt&q=#{term}").at_css('table.findList').children
   end
 
   def self.build_from_path(path)
     path.match(/(tt[\d]+)/)
     Movie.new($1)
+  end
+
+  require 'open-uri'
+  def self.get_document(url)
+    Nokogiri::HTML open(url)
   end
 
 end
