@@ -5,6 +5,8 @@ class Movie
 
   RESULT_LIMIT = 10
 
+  attr_accessor :id
+
   def initialize(imdb_id)
     @id = imdb_id
     self
@@ -16,7 +18,7 @@ class Movie
   end
 
   def attributes
-    {}
+    { id: @id }
   end
 
   def title
