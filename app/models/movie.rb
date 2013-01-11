@@ -38,10 +38,9 @@ class Movie
   def self.search(term=nil)
     results = []
     if term.present?
-      results_doc = Nokogiri::HTML(open("http://www.imdb.com/find?s=tt&q=#{term}"))
-      results_doc.at_css('table.findList').children.each do |result|
-        result.at_css('td.result_text a').attribute('href').to_s.match(/(tt[\d]+)/)
-        results << Movie.new($1)
+      imdb_search_result_rows(term).each do |row|
+        imdb_path = row.at_css('td.result_text a').attribute('href').to_s
+        results << Movie.build_from_path(imdb_path)
         break if results.size == RESULT_LIMIT
       end
     end
@@ -64,6 +63,15 @@ class Movie
 
   def title_and_release_year
     @tary ||= overview.at_css('h1.header').text
+  end
+
+  def self.imdb_search_result_rows(term)
+    Nokogiri::HTML(open("http://www.imdb.com/find?s=tt&q=#{term}")).at_css('table.findList').children
+  end
+
+  def self.build_from_path(path)
+    path.match(/(tt[\d]+)/)
+    Movie.new($1)
   end
 
 end
