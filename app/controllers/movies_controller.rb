@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
 
+  caches_page :show
+
   respond_to :json, :xml
 
   def index
