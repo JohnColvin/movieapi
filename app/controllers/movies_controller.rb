@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
 
-  caches_action :show, :top, :index
+  caches_action :show, :top250, :index
 
   respond_to :json, :xml
 
