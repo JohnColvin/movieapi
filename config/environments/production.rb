@@ -1,4 +1,4 @@
-Movieapi::Application.configure do
+Example::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -8,19 +8,18 @@ Movieapi::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  # config.assets.compress = true
+  config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  # config.assets.compile = false
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  # Defaults to nil and saved in location specified by config.assets.prefix
+  # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
   # Specifies the header that your server uses for sending files
@@ -40,15 +39,7 @@ Movieapi::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store
-
-  config.static_cache_control = 'public, max-age=86400'
-
-  config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new,
-    :entitystore  => 'file:tmp/cache/rack/body',
-    :allow_reload => false
-  }
+  # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -68,6 +59,15 @@ Movieapi::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+
+  config.action_dispatch.rack_cache = {
+                          :metastore    => Dalli::Client.new,
+                          :entitystore  => 'file:tmp/cache/rack/body',
+                          :allow_reload => false } # very changed
+
+  config.static_cache_control = "public, max-age=86400" # changed
+
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
