@@ -14,7 +14,8 @@ class CastMember < SerializableObject
   end
 
   def person
-    Person.new(@table_row.at_css('td.name'))
+    person_info = @table_row.at_css('td.name')
+    Person.new(person_info) if person_info
   end
 
 end
