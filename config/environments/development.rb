@@ -35,5 +35,5 @@ Movieapi::Application.configure do
   # Expands the lines which load the assets
   # config.assets.debug = true
 
-  config.cache_store = :dalli_store, { :expires_in => 120 }
+  # config.cache_store = :dalli_store, { :expires_in => 120 }
 end
