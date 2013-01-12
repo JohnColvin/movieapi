@@ -6,7 +6,7 @@ namespace :cache do
     cache = Dalli::Client.new
 
     %w{ xml json }.each do |file_ext|
-      cache.set("views/movieapi.herokuapp.com/movies/top.#{file_ext}", top_250_movies.send("to_#{file_ext}"), 172800)
+      cache.set("views/movieapi.herokuapp.com/movies/top250.#{file_ext}", top_250_movies.send("to_#{file_ext}"), 172800)
     end
   end
 end

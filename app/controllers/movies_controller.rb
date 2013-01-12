@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     respond_with Movie.search(params[:term])
   end
 
-  def top
+  def top250
     respond_with Movie.top_250
   end
 
