@@ -1,20 +1,11 @@
-class CharacterPerson
-
-  include ActiveModel::Serializers::JSON
-  include ActiveModel::Serializers::Xml
+class CharacterPerson < SerializableObject
 
   def initialize(table_cell_contents)
     @table_cell_contents = table_cell_contents
   end
 
-  def serializable_hash(options=nil)
-    options ||= {}
-    options[:methods] = %w{ name page }
-    super(options)
-  end
-
-  def attributes
-    {}
+  def serialize_methods
+    %w{ name page }
   end
 
   def name

@@ -1,20 +1,11 @@
-class CastMember
+class CastMember < SerializableObject
 
-  include ActiveModel::Serializers::JSON
-  include ActiveModel::Serializers::Xml
+  def serialize_methods
+    %w{ character person }
+  end
 
   def initialize(table_row)
     @table_row = table_row
-  end
-
-  def serializable_hash(options=nil)
-    options ||= {}
-    options[:methods] = %w{ character person }
-    super(options)
-  end
-
-  def attributes
-    {}
   end
 
   def character

@@ -1,22 +1,17 @@
-class Movie
-
-  include ActiveModel::Serializers::JSON
-  include ActiveModel::Serializers::Xml
+class Movie < SerializableObject
 
   RESULT_LIMIT = 10
   IMDB_URL = 'http://www.imdb.com'
+
+  def serialize_methods
+    %w{ title release_year rating storyline cast_members }
+  end
 
   attr_accessor :id
 
   def initialize(imdb_id)
     @id = imdb_id
     self
-  end
-
-  def serializable_hash(options=nil)
-    options ||= {}
-    options[:methods] = %w{ title release_year rating storyline cast_members }
-    super(options)
   end
 
   def attributes
