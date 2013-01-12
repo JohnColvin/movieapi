@@ -26,3 +26,42 @@ Returns the IMDB top 250
 
 - Path: /movies/top.:format
 - Example: movies/top.json
+
+## Response data
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>IMDB ID</td>
+      <td>tt1049413</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>Movie title</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <td>release_year</td>
+      <td>Film release year</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <td>rating</td>
+      <td>IMDB aggregate rating</td>
+      <td>8.4</td>
+    </tr>
+    <tr>
+      <td>storyline</td>
+      <td>The storyline of the movie</td>
+      <td>A movie about a boy and an old man going on a journey</td>
+    </tr>
+  </tbody>
+</table>
