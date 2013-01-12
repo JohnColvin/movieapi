@@ -4,6 +4,7 @@ class Movie
   include ActiveModel::Serializers::Xml
 
   RESULT_LIMIT = 10
+  IMDB_URL = 'http://www.imdb.com'
 
   attr_accessor :id
 
@@ -12,8 +13,9 @@ class Movie
     self
   end
 
-  def serializable_hash(options={})
-    options[:methods] = %w{ title release_year rating storyline }
+  def serializable_hash(options=nil)
+    options ||= {}
+    options[:methods] = %w{ title release_year rating storyline cast_members }
     super(options)
   end
 
@@ -51,6 +53,12 @@ class Movie
 
       return storyline_element.text.strip
     end
+  end
+
+  def cast_members
+    cast_rows = @details.at_css('table.cast_list')
+    cast_rows.children[0].remove #remove header row
+    cast_rows.children.map { |cast_member_row| CastMember.new(cast_member_row) }
   end
 
   def self.search(term)
