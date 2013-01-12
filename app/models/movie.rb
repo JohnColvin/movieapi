@@ -58,21 +58,10 @@ class Movie
     movies_from_anchor_tags search_result_rows.map{ |row| row.at_css('td.result_text a') }
   end
 
-  def self.top_250(page)
-    page = page.to_i
-    return [] unless (1..25).to_a.include? page
-    offset = (page - 1) * RESULT_LIMIT
-
-    rows = []
+  def self.top_250
     top_table = Dom.get('http://www.imdb.com/chart/top').css('div#main table')[1]
-    top_table.children.each_with_index do |row, index|
-      next if index <= offset
-      next if offset == 0 && index == 0 #skip header row
-      rows << row
-      break if rows.size == RESULT_LIMIT
-    end
-
-    movies_from_anchor_tags rows.map{ |row| row.at_css('td a') }
+    top_table.children[0].remove #remove header row
+    movies_from_anchor_tags top_table.children.map{ |row| row.at_css('td a') }
   end
 
   private

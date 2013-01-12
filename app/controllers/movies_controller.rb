@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
 
-  caches_page :show
+  caches_page :show, :top
 
   respond_to :json, :xml
 
@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   end
 
   def top
-    respond_with Movie.top_250(params[:page] || 1)
+    respond_with Movie.top_250
   end
 
   def show
