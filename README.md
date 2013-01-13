@@ -2,7 +2,7 @@
 
 #### This app is a proof of concept and is not intended for use. Consult IMDB's terms before screen scraping them.
 
-This app screen scrapes IMDB for basic information. All responses are available in JSON and XML formats.
+This app screen scrapes IMDB for basic information. All responses are available in JSON and XML formats, except the top 250 which is only availble in JSON.
 
 ## Endpoints
 
@@ -22,10 +22,10 @@ Returns the first 10 results that match your search query
 
 ### Top 250
 
-Returns the IMDB top 250
+Returns the IMDB top 250 (only available in JSON format)
 
-- Path: /movies/top.:format
-- Example: movies/top.json
+- Path: /movies/top250.:format
+- Example: movies/top250.json
 
 ## Response data
 
