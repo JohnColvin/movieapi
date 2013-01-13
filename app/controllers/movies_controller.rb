@@ -9,7 +9,10 @@ class MoviesController < ApplicationController
   end
 
   def top250
-    respond_with Movie.top_250
+    respond_to do |format|
+      format.xml { respond_with [] }
+      format.json { respond_with Movie.top_250 }
+    end
   end
 
   def show
