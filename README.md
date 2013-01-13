@@ -4,6 +4,8 @@
 
 This app screen scrapes IMDB for basic information. All responses are available in JSON and XML formats, except the top 250 which is only availble in JSON.
 
+A demo of this app is running at movieapi.herokuapp.com. The root path goes nowhere, so use one of the endpoints described below.
+
 ## Endpoints
 
 ### Movie Details
