@@ -67,3 +67,32 @@ Returns the IMDB top 250 (only available in JSON format)
     </tr>
   </tbody>
 </table>
+
+### Cast Member Data
+
+Movie data also includes a collection of cast member information. Here is an example:
+
+```xml
+  <cast-members type="array">
+    <cast-member>
+      <character>
+        <name>Carl Fredricksen</name>
+        <page>http://www.imdb.com/character/ch0091853/</page>
+      </character>
+      <person>
+        <name>Edward Asner</name>
+        <page>http://www.imdb.com/name/nm0000799/</page>
+      </person>
+    </cast-member>
+    <cast-member>
+      <character>
+        <name>Charles Muntz</name>
+        <page>http://www.imdb.com/character/ch0143952/</page>
+      </character>
+      <person>
+        <name>Christopher Plummer</name>
+        <page>http://www.imdb.com/name/nm0001626/</page>
+      </person>
+    </cast-member>
+  </cast-members>
+```
