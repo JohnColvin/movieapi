@@ -26,7 +26,7 @@ class Movie < SerializableObject
 
   def release_year
     return @release_year if @release_year.present?
-    title_and_release_year.css('span').text.match(/(\d+)/)
+    title_and_release_year.css('span').text.match(/(\d{4})/)
     @release_year = $1
   end
 
