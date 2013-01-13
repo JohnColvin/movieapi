@@ -4,7 +4,7 @@
 
 This app screen scrapes IMDB for basic information. All responses are available in JSON and XML formats, except the top 250 which is only availble in JSON.
 
-A demo of this app is running at movieapi.herokuapp.com. The root path goes nowhere, so use one of the endpoints described below.
+A demo of this app is running at [movieapi.herokuapp.com](http://movieapi.herokuapp.com). The root path goes nowhere, so use one of the endpoints described below.
 
 ## Endpoints
 
@@ -13,21 +13,21 @@ A demo of this app is running at movieapi.herokuapp.com. The root path goes nowh
 Returns the movie with the provided IMDB ID (ex: tt1049413)
 
 - Path: /movies/:imdb_id.:format
-- Example: /movies/tt1049413.json
+- Example: [/movies/tt1049413.json](http://movieapi.herokuapp.com/movies/tt1049413.json)
 
 ### Movie Search
 
 Returns the first 10 results that match your search query
 
 - Path: /movies/:term.:format
-- Example: /movies.up.json
+- Example: [/movies/up.json](http://movieapi.herokuapp.com/movies/up.json)
 
 ### Top 250
 
 Returns the IMDB top 250 (only available in JSON format)
 
 - Path: /movies/top250.:format
-- Example: movies/top250.json
+- Example: [/movies/top250.json](http://movieapi.herokuapp.com/movies/top250.json)
 
 ## Response data
 
