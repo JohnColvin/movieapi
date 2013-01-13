@@ -52,8 +52,10 @@ class Movie < SerializableObject
 
   def cast_members
     cast_rows = @details.at_css('table.cast_list')
-    cast_rows.children[0].remove #remove header row
-    cast_rows.children.map { |cast_member_row| CastMember.new(cast_member_row) }
+    if cast_rows
+      cast_rows.children[0].remove #remove header row
+      cast_rows.children.map { |cast_member_row| CastMember.new(cast_member_row) }
+    end
   end
 
   def self.search(term)
