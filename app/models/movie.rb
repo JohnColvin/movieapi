@@ -59,7 +59,7 @@ class Movie < SerializableObject
   end
 
   def self.search(term)
-    search_result_rows = Dom.get("http://www.imdb.com/find?s=tt&q=#{term}").at_css('table.findList').children[0..(RESULT_LIMIT-1)]
+    search_result_rows = Dom.get("http://www.imdb.com/find?s=tt&q=#{URI::escape(term)}").at_css('table.findList').children[0..(RESULT_LIMIT-1)]
     movies_from_anchor_tags search_result_rows.map{ |row| row.at_css('td.result_text a') }
   end
 
