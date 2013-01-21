@@ -6,10 +6,13 @@ gem 'thin'
 gem 'dalli'
 gem 'nokogiri'
 
-group :test, :development do
+group :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
+end
+
+group :test, :development do
   gem 'pry-rails'
   gem 'pry-nav'
 end
