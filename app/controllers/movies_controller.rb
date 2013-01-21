@@ -15,6 +15,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def best_pictures
+    respond_with Movie.best_picture_winners
+  end
+
   def show
     respond_with Movie.new(params[:id])
   end
