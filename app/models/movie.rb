@@ -76,6 +76,7 @@ class Movie < SerializableObject
   def self.best_picture_winner(year)
     oscar_results_page = Dom.get("http://www.imdb.com/event/ev0000003/#{year}")
     awards_block = oscar_results_page.at_css('#main .award')
+    return nil if awards_block.nil?
     winner_header = awards_block.at_css('h3')
     return nil unless winner_header.text.downcase == 'winner'
     best_picture_anchor_tag = winner_header.next_element.at_css('strong a')
